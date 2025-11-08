@@ -5,6 +5,7 @@ import connectDB from "./config/database.js";
 dotenv.config();
 import userRoute from "./routes/userRoute.js";
 import eventRoute from "./routes/eventRoute.js";
+import bookingRoute from "./routes/bookingRoute.js";
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(morgan("dev"));
 
 app.use("/api", userRoute);
 app.use("/api", eventRoute);
+app.use("/api", bookingRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

@@ -1,37 +1,56 @@
-import mangoose from "mongoose";
+import mongoose from "mongoose";
 
-const eventSchema = new mangoose.Schema(
+const eventSchema = new mongoose.Schema(
   {
-    userId: {
-      type: mangoose.Schema.Types.ObjectId,
+    eventId: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
+    tags: {
+      type: [String],
+      default: [],
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
+    totalSeats: {
+      type: Number,
+      required: true,
+    },
+    bookedSeats: {
+      type: Number,
+      default: 0,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    organizer: {
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    event: {
+    status: {
       type: String,
-      required: true,
-    },
-    quantity: {
-      type: Number,
-      required: true,
-      min: 1,
-    },
-    bookingId: {
-      type: String,
-      unique: true,
-    },
-    totalPaid: {
-      type: Number,
-      required: true,
-    },
-    bookingStatus: {
-      type: String,
-      enum: ["PENDING", "CONFIRMED", "CANCELLED"],
-      default: "CONFIRMED",
+      enum: ["DRAFT", "PUBLISHED", "CANCELLED"],
+      default: "DRAFT",
     },
   },
   {
     timestamps: true,
   }
 );
-export default mangoose.model("Event", eventSchema);
+
+export default mongoose.model("Event", eventSchema);
